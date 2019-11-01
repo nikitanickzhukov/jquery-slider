@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery slider plugin</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    </head>
+    <body>
+        <h2>Simple slider</h2>
+        <div class="slider">
+            <div class="slider-container" id="slider">
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+            </div>
+        </div>
+
+        <h2>Slider with controls and without swipe</h2>
+        <div class="slider" id="control-slider">
+            <a href="#" class="slider-prev">←</a>
+
+            <div class="slider-container">
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+            </div>
+
+            <a href="#" class="slider-next">→</a>
+
+            <div class="slider-panel">
+                <a href="#" class="slider-link">1</a>
+                <a href="#" class="slider-link">2</a>
+                <a href="#" class="slider-link">3</a>
+                <a href="#" class="slider-link">4</a>
+                <a href="#" class="slider-link">5</a>
+                <a href="#" class="slider-link">6</a>
+            </div>
+        </div>
+
+        <h2>Fading slider without looping</h2>
+        <div class="slider" id="fade-slider">
+            <a href="#" class="slider-prev">←</a>
+
+            <div class="slider-container">
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+            </div>
+
+            <a href="#" class="slider-next">→</a>
+
+            <div class="slider-panel">
+                <a href="#" class="slider-link">1</a>
+                <a href="#" class="slider-link">2</a>
+                <a href="#" class="slider-link">3</a>
+                <a href="#" class="slider-link">4</a>
+                <a href="#" class="slider-link">5</a>
+                <a href="#" class="slider-link">6</a>
+            </div>
+        </div>
+
+        <h2>Slider with custom effects</h2>
+        <div class="slider" id="custom-slider">
+            <a href="#" class="slider-prev">←</a>
+
+            <div class="slider-container">
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+                <div class="slider-item"></div>
+            </div>
+
+            <a href="#" class="slider-next">→</a>
+
+            <div class="slider-panel">
+                <a href="#" class="slider-link">1</a>
+                <a href="#" class="slider-link">2</a>
+                <a href="#" class="slider-link">3</a>
+                <a href="#" class="slider-link">4</a>
+                <a href="#" class="slider-link">5</a>
+                <a href="#" class="slider-link">6</a>
+            </div>
+
+            <div class="test">
+                <button class="test-prev">showPrev</button>
+                <button class="test-next">showNext</button>
+                <button class="test-show">show</button>
+                <button class="test-start">start</button>
+                <button class="test-stop">stop</button>
+                <button class="test-check">check</button>
+                <button class="test-resize">resize</button>
+                <button class="test-count">count</button>
+                <button class="test-destroy">destroy</button>
+            </div>
+        </div>
+
+        <style>
+            body {
+                text-align: center;
+            }
+
+            .slider {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                width: 60%;
+                margin: 0 auto;
+            }
+            .slider-prev,
+            .slider-next {
+                flex-shrink: 0;
+                font-size: 36px;
+                text-decoration: none;
+                color: #000;
+                cursor: pointer;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+            .slider-prev {
+                margin-right: 8px;
+            }
+            .slider-next {
+                margin-left: 8px;
+            }
+            .slider-prev.is-disabled,
+            .slider-next.is-disabled {
+                color: #aaa;
+                cursor: not-allowed;
+            }
+            .slider-container {
+                flex-grow: 1;
+                overflow: hidden;
+                position: relative;
+                height: 200px;
+            }
+            .slider-item {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .slider-item:nth-child(3n+1) {
+                background-color: red;
+            }
+            .slider-item:nth-child(3n+2) {
+                background-color: green;
+            }
+            .slider-item:nth-child(3n+3) {
+                background-color: blue;
+            }
+            .slider-panel {
+                width: 100%;
+                text-align: center;
+                margin-top: 12px;
+            }
+            .slider-link {
+                color: #999;
+            }
+            .slider-link.is-active {
+                color: #000;
+            }
+
+            @media (max-width: 768px) {
+                .slider {
+                    width: 100%;
+                }
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="../public/jquery.slider.js"></script>
+        <script>
+            $('#slider').slider();
+
+            $('#control-slider').slider({
+                container: $('#control-slider .slider-container'),
+                items: $('#control-slider .slider-item'),
+                prev: $('#control-slider .slider-prev'),
+                next: $('#control-slider .slider-next'),
+                links: $('#control-slider .slider-link'),
+                useSwipe: false
+            });
+
+            $('#fade-slider').slider({
+                container: $('#fade-slider .slider-container'),
+                items: $('#fade-slider .slider-item'),
+                prev: $('#fade-slider .slider-prev'),
+                next: $('#fade-slider .slider-next'),
+                links: $('#fade-slider .slider-link'),
+                effect: 'fade',
+                loop: false
+            });
+
+            $('#custom-slider').slider({
+                container: $('#custom-slider .slider-container'),
+                items: $('#custom-slider .slider-item'),
+                prev: $('#custom-slider .slider-prev'),
+                next: $('#custom-slider .slider-next'),
+                links: $('#custom-slider .slider-link'),
+                duration: 500,
+                delay: 5000,
+                swipeChangeOn: 0.4,
+                swipeRatio: function(kx, ky) {
+                    return kx;
+                },
+                idx: 2,
+                autoPlay: true,
+                loop: true,
+                activeClass: 'is-active',
+                disabledClass: 'is-disabled',
+                beforeChange: function(oldIdx, newIdx) {
+                    console.log('beforeChange', oldIdx, newIdx);
+                },
+                afterChange: function(oldIdx, newIdx) {
+                    console.log('afterChange', oldIdx, newIdx);
+                },
+                duringChange: function(oldIdx, newIdx, ratio) {
+                    console.log('duringChange', oldIdx, newIdx, ratio);
+                },
+                effect: 'myeffect',
+                effects: {
+                    myeffect: {
+                        oldSlideCSS: function(oldIdx, newIdx, ratio) {
+                            return {
+                                left: 0,
+                                top: 0,
+                                opacity: 1,
+                                zIndex: 1
+                            };
+                        },
+                        newSlideCSS: function(oldIdx, newIdx, ratio) {
+                            var coef = (oldIdx < newIdx) ? 1 : -1;
+                            if (this.opt.loop) {
+                                if (oldIdx === 0 && newIdx === this.count - 1) {
+                                    coef = -1;
+                                } else if (oldIdx === this.count - 1 && newIdx === 0) {
+                                    coef = 1;
+                                }
+                            }
+                            return {
+                                left: (coef * (1 - ratio) * 100) + '%',
+                                top: (coef * (1 - ratio) * 100) + '%',
+                                opacity: ratio,
+                                zIndex: 2
+                            };
+                        },
+                        resetSlideCSS() {
+                            return {
+                                left: '',
+                                top: '',
+                                opacity: '',
+                                zIndex: ''
+                            };
+                        }
+                    }
+                }
+            });
+
+            $('#custom-slider .test-prev').on('click', function(e) {
+                e.preventDefault();
+                $('#custom-slider').slider('showPrev');
+            });
+            $('#custom-slider .test-next').on('click', function(e) {
+                e.preventDefault();
+                $('#custom-slider').slider('showNext');
+            });
+            $('#custom-slider .test-show').on('click', function(e) {
+                e.preventDefault();
+                $('#custom-slider').slider('show', prompt('Slide index'));
+            });
+            $('#custom-slider .test-start').on('click', function(e) {
+                e.preventDefault();
+                $('#custom-slider').slider('start');
+            });
+            $('#custom-slider .test-stop').on('click', function(e) {
+                e.preventDefault();
+                $('#custom-slider').slider('stop');
+            });
+            $('#custom-slider .test-check').on('click', function(e) {
+                e.preventDefault();
+                $('#custom-slider').slider('check');
+            });
+            $('#custom-slider .test-resize').on('click', function(e) {
+                e.preventDefault();
+                $('#custom-slider').slider('resize');
+            });
+            $('#custom-slider .test-count').on('click', function(e) {
+                e.preventDefault();
+                alert($('#custom-slider').slider('count'));
+            });
+            $('#custom-slider .test-destroy').on('click', function(e) {
+                e.preventDefault();
+                $('#custom-slider').slider('destroy');
+            });
+        </script>
+    </body>
+</html>
