@@ -7,13 +7,14 @@
 * `next` `{String|jQuery}` - selector or jQuery-object of next arrow
 * `links` `{String|jQuery}` - selector or jQuery-object of list of navigation links
 * `idx` `{Number}` - index of slide to show first (default: `0`)
+* `vertical` `{Boolean}` - use vertical mode for swipe and slide effect (default: `false`)
 * `duration` `{Number}` - animation duration in ms (default: `300`)
 * `loop` `{Boolean}` - show first slide after the last and last one after the first (default: `true`)
 * `autoPlay` `{Boolean}` - turn on slideshow (default: `false`)
 * `delay` `{Number}` - delay between slides in slideshow in ms (default: `5000`)
 * `useSwipe` `{Boolean}` - use swipe handlers (touch and mouse) to change slides (default: `true`)
 * `swipeChangeOn` `{Number}` - position [0, 1] of next slide while swiping when current slide must be changed (default: `0.5`)
-* `swipeRatio` `{Function}` - function to define swipe position (default: returns `ratioX`), positional arguments:
+* `swipeRatio` `{Function}` - function to define swipe position (default: returns `ratioY` in vertical mode else `ratioX`), positional arguments:
     * `ratioX` - relative position on x axis [0, 1]
     * `ratioY` - relative position on y axis [0, 1]
 * `activeClass` `{String}` - active navigation link class (default: `is-active`)

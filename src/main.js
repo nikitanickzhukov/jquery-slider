@@ -10,14 +10,15 @@
         next: null,
         links: null,
         idx: 0,
+        vertical: false,
         duration: 300,
         loop: true,
         autoPlay: false,
         delay: 5000,
         useSwipe: true,
         swipeChangeOn: 0.5,
-        swipeRatio(ratioX) {
-            return ratioX;
+        swipeRatio(ratioX, ratioY) {
+            return this.opt.vertical ? ratioY : ratioX;
         },
         activeClass: 'is-active',
         disabledClass: 'is-disabled',
@@ -28,14 +29,14 @@
             slide: {
                 oldSlideCSS(oldIdx, newIdx, ratio) {
                     let coef = (((oldIdx < newIdx) && !(this.opt.loop && oldIdx === 0 && newIdx === this.count - 1)) || (this.opt.loop && oldIdx === this.count - 1 && newIdx === 0)) ? -1 : 1;
-                    return { left: (coef * ratio * 100) + '%' };
+                    return this.opt.vertical ? { top: (coef * ratio * 100) + '%' } : { left: (coef * ratio * 100) + '%' };
                 },
                 newSlideCSS(oldIdx, newIdx, ratio) {
                     let coef = (((oldIdx < newIdx) && !(this.opt.loop && oldIdx === 0 && newIdx === this.count - 1)) || (this.opt.loop && oldIdx === this.count - 1 && newIdx === 0)) ? 1 : -1;
-                    return { left: (coef * (1 - ratio) * 100) + '%' };
+                    return this.opt.vertical ? { top: (coef * (1 - ratio) * 100) + '%' } : { left: (coef * (1 - ratio) * 100) + '%' };
                 },
                 resetSlideCSS() {
-                    return { left: '' };
+                    return this.opt.vertical ? { top: '' } : { left: '' };
                 }
             },
             fade: {
@@ -477,7 +478,7 @@
 
             const kx = (point.x - this.point.x) / this.__size.x,
                 ky = (point.y - this.point.y) / this.__size.y,
-                k = this.opt.swipeRatio(kx, ky),
+                k = this.opt.swipeRatio.call(this, kx, ky),
                 newIdx = (k < 0) ? this._getNextIdx() : this._getPrevIdx();
 
             if (newIdx !== -1) {
@@ -514,7 +515,7 @@
             if (this.__newIdx !== undefined) {
                 const kx = point ? ((point.x - this.point.x) / this.__size.x) : 0,
                     ky = point ? ((point.y - this.point.y) / this.__size.y) : 0,
-                    k = this.opt.swipeRatio(kx, ky);
+                    k = this.opt.swipeRatio.call(this, kx, ky);
 
                 const $old = this.$items.eq(this.idx),
                     $new = this.$items.eq(this.__newIdx);
